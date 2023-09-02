@@ -13,13 +13,15 @@
 #include "stb/stb_image_write.h"
 
 #define MAX_BUFFER_SIZE 1024
-#define PORT 8080
+#define PORT 1717
 #define SA struct sockaddr
 
 
 void sendImage(int sockfd, unsigned char* image, int size) 
 {
    
+    if(image == NULL)
+        exit(0);
     if (write(sockfd, &size, sizeof(int)) <= 0) 
     {
         perror("Error sending image size");

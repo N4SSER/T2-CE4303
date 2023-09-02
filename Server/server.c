@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include "filter/filter.h"
 
-#define PORT 8080
+#define PORT 1717
 
 void sendImage(int connfd, unsigned char* image, int size) 
 {
@@ -16,14 +16,12 @@ void sendImage(int connfd, unsigned char* image, int size)
     {
         perror("Error sending image size");
         close(connfd);
-        exit(1);
     }
 
     if (write(connfd, image, size) <= 0) 
     {
         perror("Error sending image data");
         close(connfd);
-        exit(1);
     }
 }
 
@@ -78,7 +76,6 @@ int main()
             perror("Error reading image size");
             close(connfd);
             close(sockfd);
-            exit(1);
         }
 
         unsigned char* image = (unsigned char*)malloc(size);
