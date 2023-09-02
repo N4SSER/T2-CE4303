@@ -25,7 +25,6 @@ void sendImage(int connfd, unsigned char* image, int size)
     }
 }
 
-
 int main()
 {
     int sockfd, connfd, len;
@@ -56,7 +55,7 @@ int main()
         exit(0);
     }
     else
-        printf("Server listening..\n");
+        printf("Server listening..\n"); 
     len = sizeof(cli);
 
     while (1) 

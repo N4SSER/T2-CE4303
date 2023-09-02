@@ -16,7 +16,6 @@
 #define PORT 1717
 #define SA struct sockaddr
 
-
 void sendImage(int sockfd, unsigned char* image, int size) 
 {
    
