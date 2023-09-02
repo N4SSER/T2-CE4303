@@ -67,14 +67,21 @@ void receiveImage(int sockfd, int width, int height, int channels, const char* o
     free(image);
 }
 
-int main() 
+int main(int argc, char *argv[]) 
 {
+
+     if (argc != 3) {
+        printf("Usage: %s <IP address> <port>\n", argv[0]);
+        return 1;
+    }
+
+    char *ip_address = argv[1];
+    int port = atoi(argv[2]);
+    
     int sockfd;
     struct sockaddr_in servaddr;
-    int idx = 0;
     while(1)
     {
-        idx++;
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
         if (sockfd == -1) 
         {
@@ -85,8 +92,8 @@ int main()
         bzero(&servaddr, sizeof(servaddr));
 
         servaddr.sin_family = AF_INET;
-        servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-        servaddr.sin_port = htons(PORT);
+        servaddr.sin_addr.s_addr = inet_addr(ip_address);
+        servaddr.sin_port = htons(port);
 
         if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) 
         {
@@ -97,9 +104,10 @@ int main()
         char imagePath[MAX_BUFFER_SIZE];
         printf("Enter the path to the image file: ");
         fgets(imagePath, MAX_BUFFER_SIZE, stdin);
-        if(imagePath == "exit")
-            break;
+
         imagePath[strcspn(imagePath, "\n")] = '\0';
+        if(!strcmp(imagePath,"Exit"))
+            break;
 
         int width, height, channels;
         unsigned char* image = stbi_load(imagePath, &width, &height, &channels, 3); 

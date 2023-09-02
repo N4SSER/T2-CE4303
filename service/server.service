@@ -1,0 +1,15 @@
+[Unit]
+Description=Image filter to improve contrast server
+After=network.target
+
+[Service]
+ExecStartPre=/bin/bash -c 'cd /home/nasser/T2-CE4303/Server && make'
+ExecStart=/home/nasser/T2-CE4303/Server/server
+Restart=always
+WorkingDirectory=/home/nasser/T2-CE4303/Server
+User=nasser
+Group=nasser
+
+[Install]
+WantedBy=multi-user.target
+
